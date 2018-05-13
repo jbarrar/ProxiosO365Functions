@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "sites_ProxiosO365_name": {
-            "defaultValue": "ProxiosO365",
+            "defaultValue": "ProxiosO365<version>",
             "type": "String"
         },
         "config_web_name": {
@@ -14,8 +14,8 @@
             "defaultValue": "proxioso365",
             "type": "String"
         },
-        "serverfarms_ServicePlanc78953a5_a033_name": {
-            "defaultValue": "ServicePlanc78953a5-a033",
+        "servicePlan_name": {
+            "defaultValue": "ProxiosO365FunctionsSP",
             "type": "String"
         },
         "hostNameBindings_proxioso365.azurewebsites.net_name": {
@@ -71,12 +71,12 @@
                 "capacity": 1
             },
             "kind": "app",
-            "name": "[parameters('serverfarms_ServicePlanc78953a5_a033_name')]",
+            "name": "[parameters('servicePlan_name')]",
             "apiVersion": "2016-09-01",
             "location": "Central US",
             "scale": null,
             "properties": {
-                "name": "[parameters('serverfarms_ServicePlanc78953a5_a033_name')]",
+                "name": "[parameters('servicePlan_name')]",
                 "workerTierName": null,
                 "adminSiteName": null,
                 "hostingEnvironmentProfile": null,
@@ -118,7 +118,7 @@
                         "hostType": "Repository"
                     }
                 ],
-                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_ServicePlanc78953a5_a033_name'))]",
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('servicePlan_name'))]",
                 "reserved": false,
                 "siteConfig": null,
                 "scmSiteAlsoStopped": false,
@@ -131,7 +131,7 @@
                 "cloningInfo": null
             },
             "dependsOn": [
-                "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_ServicePlanc78953a5_a033_name'))]"
+                "[resourceId('Microsoft.Web/serverfarms', parameters('servicePlan_name'))]"
             ]
         },
         {
