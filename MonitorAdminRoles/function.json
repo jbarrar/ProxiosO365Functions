@@ -18,7 +18,7 @@
       "type": "table",
       "connection": "AzureWebJobsStorage",
       "tableName": "roleMonitoring",
-      "direction": "in"
+      "direction": "out"
     }
   ],
 
