@@ -5,7 +5,7 @@ $tableName = "roleMonitoring"
 $queueName = "adminnotifications"
 $connectionString = $env:AzureWebJobsStorage
 $keyVaultName = "CeleritasVault"
-#$NotifyOnNewAdmins = $false
+$NotifyOnNewAdmins = $true
 #$storageAccount = "proxioso365"
 #$primaryKey = "PrKuwY/0mkZsSmzezHF3N9wrvc0lIZKqaDkD4cymsqJVecwk6ZPG7TAQRmAN2Fr+jt5lptG/PHFuDuQ/+CYLDQ=="
 $FunctionName = "MonitorAdminRoles"
@@ -29,27 +29,24 @@ $authenticationResult = Invoke-RestMethod -Method Get -Headers $header -Uri ($en
 $requestHeader = @{ Authorization = "Bearer $($authenticationResult.access_token)" }
 # Call the Vault and Retrieve Creds
 $creds = Invoke-RestMethod -Method GET -Uri $vaultSecretURI -ContentType 'application/json' -Headers $requestHeader
-write-output "Credential ID: " $($creds.id)
-write-output "Credential Value: " $($creds.value) 
-
+#write-output "Credential ID: " $($creds.id)
+#write-output "Credential Value: " $($creds.value) 
 $pw = $creds.value
 
 $vaultSecretURI = 'https://celeritasvault.vault.azure.net/secrets/AdminPassKey/7baae4e486c540429f08116221eb1513/?api-version=2015-06-01'
 $creds = Invoke-RestMethod -Method GET -Uri $vaultSecretURI -ContentType 'application/json' -Headers $requestHeader
-write-output "Credential ID: " $($creds.id)
-write-output "Credential Value: " $($creds.value) 
+#write-output "Credential ID: " $($creds.id)
+#write-output "Credential Value: " $($creds.value) 
 
 # Build Credentials
 #$keypath = "D:\home\site\wwwroot\$FunctionName\bin\keys\PassEncryptKey.key"
 $secpassword = ConvertTo-SecureString $($creds.value) -AsPlainText -Force
 $credential = New-Object System.Management.Automation.PSCredential ($username, $secpassword)
-$credential.GetNetworkCredential().Password
 
 # Connect to MSOnline
 
-#Connect-MsolService -Credential $credential
+Connect-MsolService -Credential $credential
  
-<#
 $Ctx = New-AzureStorageContext -ConnectionString $connectionString
 $Table = Get-AzureStorageTable -Name $tableName -Context $Ctx -ErrorAction Ignore
 if ($Table -eq $null) {
@@ -108,4 +105,3 @@ foreach ($customer in $customers) {
         }        
     }
 }
-#>
