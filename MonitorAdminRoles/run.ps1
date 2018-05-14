@@ -1,25 +1,27 @@
 Write-Output "PowerShell Timer trigger function executed at:$(get-date)";
  
 # Set this $NotifyOnNewAdmins value to true after you've completed the initial upload
-$tableName = "tableBinding"
-$queueName = "queueOutput"
+$tableName = "roleMonitoring"
+$queueName = "adminnotifications"
 $connectionString = $env:AzureWebJobsStorage
-<#$NotifyOnNewAdmins = $false
-$storageAccount = "proxioso365"
-$primaryKey = "PrKuwY/0mkZsSmzezHF3N9wrvc0lIZKqaDkD4cymsqJVecwk6ZPG7TAQRmAN2Fr+jt5lptG/PHFuDuQ/+CYLDQ=="
+$keyVaultName = "CeleritasVault"
+#$NotifyOnNewAdmins = $false
+#$storageAccount = "proxioso365"
+#$primaryKey = "PrKuwY/0mkZsSmzezHF3N9wrvc0lIZKqaDkD4cymsqJVecwk6ZPG7TAQRmAN2Fr+jt5lptG/PHFuDuQ/+CYLDQ=="
 $FunctionName = "MonitorAdminRoles"
-$username = $Env:user
-$pw = $Env:password
+$username = "o365tasks@prxcsp.com"
+$pw = Get-AzureKeyVaultSecret -VaultName $keyVaultName -Name "AdminPassSecureString"
+Write-Output $pw
 # Build Credentials
-$keypath = "D:\home\site\wwwroot\$FunctionName\bin\keys\PassEncryptKey.key"
-$secpassword = $pw | ConvertTo-SecureString -Key (Get-Content $keypath)
-$credential = New-Object System.Management.Automation.PSCredential ($username, $secpassword)
+#$keypath = "D:\home\site\wwwroot\$FunctionName\bin\keys\PassEncryptKey.key"
+#$secpassword = $pw | ConvertTo-SecureString -Key (Get-Content $keypath)
+#$credential = New-Object System.Management.Automation.PSCredential ($username, $secpassword)
 
 # Connect to MSOnline
 
-Connect-MsolService -Credential $credential
+#Connect-MsolService -Credential $credential
  
-#>
+<#
 $Ctx = New-AzureStorageContext -ConnectionString $connectionString
 $Table = Get-AzureStorageTable -Name $tableName -Context $Ctx -ErrorAction Ignore
 if ($Table -eq $null) {
@@ -30,7 +32,7 @@ $Queue = Get-AzureStorageQueue -Name $QueueName -Context $Ctx -ErrorAction Ignor
         $Queue = New-AzureStorageQueue -Name $QueueName -Context $Ctx 
 }
 
-<# Check for existing Admins
+# Check for existing Admins
 $existingAdmins = (Get-AzureStorageTableRowAll -table $Table).RowKey
 
 $customers = Get-MsolPartnerContract -all

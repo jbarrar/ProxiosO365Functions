@@ -12,13 +12,6 @@
       "direction": "out",
       "queueName": "adminnotifications",
       "connection": "AzureWebJobsStorage"
-    },
-    {
-      "name": "tableBinding",
-      "type": "table",
-      "connection": "AzureWebJobsStorage",
-      "tableName": "roleMonitoring",
-      "direction": "out"
     }
   ],
 
