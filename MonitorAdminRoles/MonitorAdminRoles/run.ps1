@@ -1,7 +1,7 @@
 Write-Output "PowerShell Timer trigger function executed at:$(get-date)";
  
 # Set this $NotifyOnNewAdmins value to true after you've completed the initial upload
-$NotifyOnNewAdmins = $true
+$NotifyOnNewAdmins = $false
 $storageAccount = "proxioso365"
 $primaryKey = "PrKuwY/0mkZsSmzezHF3N9wrvc0lIZKqaDkD4cymsqJVecwk6ZPG7TAQRmAN2Fr+jt5lptG/PHFuDuQ/+CYLDQ=="
 $tableName = "roleMonitoring"
