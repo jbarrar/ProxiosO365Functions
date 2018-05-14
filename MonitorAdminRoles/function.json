@@ -3,7 +3,7 @@
     {
       "name": "myTimer",
       "type": "timerTrigger",
-      "direction": "in",
+      "direction": "inout",
       "schedule": "0 30 12 * * 1-5"
     },
     {
