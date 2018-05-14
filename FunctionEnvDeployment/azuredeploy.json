@@ -11,7 +11,7 @@
             "type": "string"
         },
         "servicePlan_name": {
-            "defaultValue": "ProxiosO365FunctionsSPTest",
+            "defaultValue": "ProxiosO365FunctionsTestSP",
             "type": "string"
         },
         "hostNameBindings_proxioso365.azurewebsites.net_name": {
@@ -104,6 +104,9 @@
             "name": "[parameters('sites_ProxiosO365_name')]",
             "apiVersion": "2016-08-01",
             "location": "Central US",
+            "identity": {
+                "type": "SystemAssigned"
+            },
             "scale": null,
             "properties": {
                 "enabled": true,

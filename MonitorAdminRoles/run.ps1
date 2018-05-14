@@ -1,4 +1,4 @@
-Write-Output "PowerShell Timer trigger function executed at:$(get-date)";
+Write-Host "PowerShell Timer trigger function executed at:$(get-date)";
  
 # Set this $NotifyOnNewAdmins value to true after you've completed the initial upload
 $tableName = "roleMonitoring"
@@ -10,8 +10,16 @@ $keyVaultName = "CeleritasVault"
 #$primaryKey = "PrKuwY/0mkZsSmzezHF3N9wrvc0lIZKqaDkD4cymsqJVecwk6ZPG7TAQRmAN2Fr+jt5lptG/PHFuDuQ/+CYLDQ=="
 $FunctionName = "MonitorAdminRoles"
 $username = "o365tasks@prxcsp.com"
+
+# Code to retreive with Managed Service Identity
+$apiVersion = "2017-09-01"
+$resourceURI = "https://celeritasvault.vault.azure.net/secrets/AdminPassSecureString"
+$tokenAuthURI = $env:MSI_ENDPOINT + "?resource=$resourceURI&api-version=$apiVersion"
+$tokenResponse = Invoke-RestMethod -Method Get -Headers @{"Secret"="$env:MSI_SECRET"} -Uri $tokenAuthURI
+$accessToken = $tokenResponse.access_token
+
 $pw = Get-AzureKeyVaultSecret -VaultName $keyVaultName -Name "AdminPassSecureString"
-Write-Output $pw
+Write-Host $pw
 # Build Credentials
 #$keypath = "D:\home\site\wwwroot\$FunctionName\bin\keys\PassEncryptKey.key"
 #$secpassword = $pw | ConvertTo-SecureString -Key (Get-Content $keypath)
