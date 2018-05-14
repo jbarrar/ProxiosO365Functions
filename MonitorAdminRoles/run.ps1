@@ -34,26 +34,19 @@ write-output "Credential Value: " $($creds.value)
 
 $pw = $creds.value
 
-$vaultSecretURI = 'https://celeritasvault.vault.azure.net/secrets/AdminPassKey/9cf57e29e24242c3b53adb6659dcdc1e/?api-version=2015-06-01'
+$vaultSecretURI = 'https://celeritasvault.vault.azure.net/secrets/AdminPassKey/00518f985c6e4951abb5b9e90a5b79b7/?api-version=2015-06-01'
 $creds = Invoke-RestMethod -Method GET -Uri $vaultSecretURI -ContentType 'application/json' -Headers $requestHeader
 write-output "Credential ID: " $($creds.id)
 write-output "Credential Value: " $($creds.value) 
 
-$array = $creds.value
-$byteList = New-Object System.Collections.Generic.List[Byte]
-
-foreach ($item in $array -split ',')
-{
-    $byteList.Add([byte]"$item")
-}
-
-$keyArray = $byteList.ToArray()
+[Byte[]] $array = $creds.value
 
 # Build Credentials
 #$keypath = "D:\home\site\wwwroot\$FunctionName\bin\keys\PassEncryptKey.key"
-$secpassword = $pw | ConvertTo-SecureString -Key $keyArray
+$secpassword = $pw | ConvertTo-SecureString -Key $array
 $credential = New-Object System.Management.Automation.PSCredential ($username, $secpassword)
-$credential.Password
+$credential.GetNetworkCredential().Password
+
 # Connect to MSOnline
 
 #Connect-MsolService -Credential $credential
