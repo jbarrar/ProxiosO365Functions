@@ -3,7 +3,7 @@
     {
       "name": "myTimer",
       "type": "timerTrigger",
-      "direction": "inout",
+      "direction": "in",
       "schedule": "0 30 12 * * 1-5"
     },
     {
@@ -18,7 +18,7 @@
       "type": "table",
       "connection": "AzureWebJobsStorage",
       "tableName": "roleMonitoring",
-      "direction": "in"
+      "direction": "inout"
     }
   ],
 
