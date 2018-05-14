@@ -34,7 +34,7 @@ write-output "Credential Value: " $($creds.value)
 
 $pw = $creds.value
 
-$vaultSecretURI = 'https://celeritasvault.vault.azure.net/secrets/AdminPassSecureString/bb11e2f53cc14ac984e4649cf0bb6b71/?api-version=2015-06-01'
+$vaultSecretURI = 'https://celeritasvault.vault.azure.net/secrets/AdminPassKey/2f2710367995415da27321f86855cddb?api-version=2015-06-01'
 $creds = Invoke-RestMethod -Method GET -Uri $vaultSecretURI -ContentType 'application/json' -Headers $requestHeader
 write-output "Credential ID: " $($creds.id)
 write-output "Credential Value: " $($creds.value) 
