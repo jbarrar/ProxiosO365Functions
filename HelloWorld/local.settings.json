@@ -1,0 +1,13 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "FUNCTIONS_EXTENSION_VERSION": "~1",
+    "WEBSITE_SITE_NAME": "ProxiosO365Test",
+    "WEBSITE_AUTH_AUTO_AAD": "False",
+    "WEBSITE_AUTH_ENABLED": "False",
+    "REMOTEDEBUGGINGVERSION": "11.0.611103.400",
+    "ScmType": "None",
+    "WEBSITE_AUTH_LOGOUT_PATH": "/.auth/logout",
+    "WEBSITE_SLOT_NAME": "Production"
+  }
+}

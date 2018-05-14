@@ -5,7 +5,22 @@
       "type": "timerTrigger",
       "direction": "in",
       "schedule": "0 30 12 * * 1-5"
+    },
+    {
+      "name": "triggerInput",
+      "type": "queueTrigger",
+      "direction": "in",
+      "queueName": "adminnotifications",
+      "connection": "AzureWebJobsStorage"
+    },
+    {
+      "name": "tableBinding",
+      "type": "table",
+      "connection": "AzureWebJobsStorage",
+      "tableName": "roleMonitoring",
+      "direction": "in"
     }
   ],
+
   "disabled": true
 }
