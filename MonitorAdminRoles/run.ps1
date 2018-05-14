@@ -1,4 +1,4 @@
-Write-Host "PowerShell Timer trigger function executed at:$(get-date)";
+Write-Output "PowerShell Timer trigger function executed at:$(get-date)";
  
 # Set this $NotifyOnNewAdmins value to true after you've completed the initial upload
 $tableName = "roleMonitoring"
@@ -12,12 +12,32 @@ $FunctionName = "MonitorAdminRoles"
 $username = "o365tasks@prxcsp.com"
 
 # Code to retreive with Managed Service Identity
-$apiVersion = "2017-09-01"
-$resourceURI = "https://celeritasvault.vault.azure.net/secrets/AdminPassSecureString/bb11e2f53cc14ac984e4649cf0bb6b71"
-$tokenAuthURI = $env:MSI_ENDPOINT + "?resource=$resourceURI&api-version=$apiVersion"
-$tokenResponse = Invoke-RestMethod -Method Get -Headers @{"Secret"="$env:MSI_SECRET"} -Uri $tokenAuthURI
-$accessToken = $tokenResponse.access_token
-Write-Host $accessToken
+# MSI Variables via Function Application Settings Variables
+# Endpoint and Password
+$endpoint = $env:MSI_ENDPOINT
+$endpoint
+$secret = $env:MSI_SECRET
+$secret
+
+# Vault URI to get AuthN Token
+$vaultTokenURI = 'https://vault.azure.net&api-version=2017-09-01'
+# Our Key Vault Credential that we want to retreive URI
+# NOTE: API Ver for this is 2015-06-01
+$vaultSecretURI = 'https://celeritasvault.vault.azure.net/secrets/AdminPassSecureString/bb11e2f53cc14ac984e4649cf0bb6b71/?api-version=2015-06-01'
+# Create AuthN Header with our Function App Secret
+$header = @{'Secret' = $secret}
+
+# Get Key Vault AuthN Token
+$authenticationResult = Invoke-RestMethod -Method Get -Headers $header -Uri ($endpoint +'?resource=' +$vaultTokenURI)
+$authenticationResult
+# Use Key Vault AuthN Token to create Request Header
+$requestHeader = @{ Authorization = "Bearer $($authenticationResult.access_token)" }
+
+# Call the Vault and Retrieve Creds
+$creds = Invoke-RestMethod -Method GET -Uri $vaultSecretURI -ContentType 'application/json' -Headers $requestHeader
+
+write-output "Credential ID: " $($creds.id)
+write-output "Credential Value: " $($creds.value) 
 
 #$pw = Get-AzureKeyVaultSecret -VaultName $keyVaultName -Name "AdminPassSecureString"
 
