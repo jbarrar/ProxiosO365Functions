@@ -39,11 +39,9 @@ $creds = Invoke-RestMethod -Method GET -Uri $vaultSecretURI -ContentType 'applic
 write-output "Credential ID: " $($creds.id)
 write-output "Credential Value: " $($creds.value) 
 
-[Byte[]] $array = $($creds.value)
-
 # Build Credentials
 #$keypath = "D:\home\site\wwwroot\$FunctionName\bin\keys\PassEncryptKey.key"
-$secpassword = $pw | ConvertTo-SecureString -Key $array
+$secpasswd = ConvertTo-SecureString $creds.value -AsPlainText -Force
 $credential = New-Object System.Management.Automation.PSCredential ($username, $secpassword)
 $credential.GetNetworkCredential().Password
 
