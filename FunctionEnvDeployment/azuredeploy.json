@@ -19,7 +19,7 @@
             "type": "string"
         },
         "sourceCodeRepositoryURL": {
-            "defaultValue": "https://github.com/jbarrar/ProxiosO365Functions",
+            "defaultValue": "https://github.com/jbarrar/ProxiosO365Functions.git",
             "type": "string"
         },
         "sourceCodeBranch": {
