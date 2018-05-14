@@ -1,4 +1,4 @@
-# Write-Output "PowerShell Timer trigger function executed at:$(get-date)";
+<# Write-Output "PowerShell Timer trigger function executed at:$(get-date)";
  
 # Set this $NotifyOnNewAdmins value to true after you've completed the initial upload
 $NotifyOnNewAdmins = $false
@@ -7,7 +7,7 @@ $primaryKey = "PrKuwY/0mkZsSmzezHF3N9wrvc0lIZKqaDkD4cymsqJVecwk6ZPG7TAQRmAN2Fr+j
 $tableName = "tableBinding"
 $queueName = "queueOutput"
 $FunctionName = "MonitorAdminRoles"
-<# $username = $Env:user
+# $username = $Env:user
 $pw = $Env:password
 # Build Credentials
 $keypath = "D:\home\site\wwwroot\$FunctionName\bin\keys\PassEncryptKey.key"
