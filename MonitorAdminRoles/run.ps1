@@ -39,22 +39,19 @@ $creds = Invoke-RestMethod -Method GET -Uri $vaultSecretURI -ContentType 'applic
 write-output "Credential ID: " $($creds.id)
 write-output "Credential Value: " $($creds.value) 
 
-$MACs = '00:1A:A0:69:3B:07'
+$array = $creds.value
 $byteList = New-Object System.Collections.Generic.List[Byte]
 
-foreach ($hexString in $MACs -split ':')
+foreach ($item in $array -split ',')
 {
-    $byteList.Add([byte]"0x$hexString")
+    $byteList.Add([byte]"$item")
 }
 
-$MacAddress = $byteList.ToArray()
-
-$key = $creds.value
-$bytes = [System.Text.Encoding]::UTF8.GetBytes($key)
+$keyArray = $byteList.ToArray()
 
 # Build Credentials
 #$keypath = "D:\home\site\wwwroot\$FunctionName\bin\keys\PassEncryptKey.key"
-$secpassword = $pw | ConvertTo-SecureString -Key $bytes
+$secpassword = $pw | ConvertTo-SecureString -Key $keyArray
 $credential = New-Object System.Management.Automation.PSCredential ($username, $secpassword)
 $credential.Password
 # Connect to MSOnline
