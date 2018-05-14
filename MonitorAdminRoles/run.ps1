@@ -1,4 +1,4 @@
-Write-Output "PowerShell Timer trigger function executed at:$(get-date)";
+# Write-Output "PowerShell Timer trigger function executed at:$(get-date)";
  
 # Set this $NotifyOnNewAdmins value to true after you've completed the initial upload
 $NotifyOnNewAdmins = $false
@@ -11,9 +11,9 @@ $username = $Env:user
 $pw = $Env:password
 # Build Credentials
 $keypath = "D:\home\site\wwwroot\$FunctionName\bin\keys\PassEncryptKey.key"
-$secpassword = $pw | ConvertTo-SecureString -Key (Get-Content $keypath)
-$credential = New-Object System.Management.Automation.PSCredential ($username, $secpassword)
-   
+# $secpassword = $pw | ConvertTo-SecureString -Key (Get-Content $keypath)
+# $credential = New-Object System.Management.Automation.PSCredential ($username, $secpassword)
+
 # Connect to MSOnline
 Connect-MsolService -Credential $credential
  
