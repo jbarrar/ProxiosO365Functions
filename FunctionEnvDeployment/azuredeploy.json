@@ -214,7 +214,7 @@
                    "type": "config",
                    "dependsOn": [
                      "[resourceId('Microsoft.Web/Sites', parameters('sites_ProxiosO365_name'))]",
-                     "[resourceId('', parameters('sites_ProxiosO365_name'), 'web')]",
+                     "[resourceId('Microsoft.Web/Sites/sourcecontrols', parameters('sites_ProxiosO365_name'), 'web')]",
                      "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
                    ],
                    "properties": {
