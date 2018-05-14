@@ -5,7 +5,6 @@ $tableName = "roleMonitoring"
 $queueName = "adminnotifications"
 $connectionString = $env:AzureWebJobsStorage
 $keyVaultName = "CeleritasVault"
-$NotifyOnNewAdmins = $true
 #$storageAccount = "proxioso365"
 #$primaryKey = "PrKuwY/0mkZsSmzezHF3N9wrvc0lIZKqaDkD4cymsqJVecwk6ZPG7TAQRmAN2Fr+jt5lptG/PHFuDuQ/+CYLDQ=="
 $FunctionName = "MonitorAdminRoles"
@@ -46,11 +45,13 @@ $credential = New-Object System.Management.Automation.PSCredential ($username, $
 # Connect to MSOnline
 
 Connect-MsolService -Credential $credential
- 
+
+$NotifyOnNewAdmins = $true
 $Ctx = New-AzureStorageContext -ConnectionString $connectionString
 $Table = Get-AzureStorageTable -Name $tableName -Context $Ctx -ErrorAction Ignore
 if ($Table -eq $null) {
     $Table = New-AzureStorageTable -Name $tableName -Context $Ctx 
+    $NotifyOnNewAdmins = $false
 }
 $Queue = Get-AzureStorageQueue -Name $QueueName -Context $Ctx -ErrorAction Ignore
     if ($Queue -eq $null) {
