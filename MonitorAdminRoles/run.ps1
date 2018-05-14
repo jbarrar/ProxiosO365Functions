@@ -39,7 +39,7 @@ $creds = Invoke-RestMethod -Method GET -Uri $vaultSecretURI -ContentType 'applic
 write-output "Credential ID: " $($creds.id)
 write-output "Credential Value: " $($creds.value) 
 
-[Byte[]] $array = $creds.value
+[Byte[]] $array = $($creds.value)
 
 # Build Credentials
 #$keypath = "D:\home\site\wwwroot\$FunctionName\bin\keys\PassEncryptKey.key"
