@@ -7,7 +7,7 @@ $primaryKey = "PrKuwY/0mkZsSmzezHF3N9wrvc0lIZKqaDkD4cymsqJVecwk6ZPG7TAQRmAN2Fr+j
 $tableName = "tableBinding"
 $queueName = "queueOutput"
 $FunctionName = "MonitorAdminRoles"
-$username = $Env:user
+<# $username = $Env:user
 $pw = $Env:password
 # Build Credentials
 $keypath = "D:\home\site\wwwroot\$FunctionName\bin\keys\PassEncryptKey.key"
@@ -15,6 +15,7 @@ $keypath = "D:\home\site\wwwroot\$FunctionName\bin\keys\PassEncryptKey.key"
 # $credential = New-Object System.Management.Automation.PSCredential ($username, $secpassword)
 
 # Connect to MSOnline
+
 Connect-MsolService -Credential $credential
  
 
@@ -76,3 +77,4 @@ foreach ($customer in $customers) {
         }        
     }
 }
+#>
