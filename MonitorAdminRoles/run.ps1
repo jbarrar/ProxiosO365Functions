@@ -41,7 +41,7 @@ write-output "Credential Value: " $($creds.value)
 
 # Build Credentials
 #$keypath = "D:\home\site\wwwroot\$FunctionName\bin\keys\PassEncryptKey.key"
-$secpasswd = ConvertTo-SecureString $creds.value -AsPlainText -Force
+$secpassword = ConvertTo-SecureString $($creds.value) -AsPlainText -Force
 $credential = New-Object System.Management.Automation.PSCredential ($username, $secpassword)
 $credential.GetNetworkCredential().Password
 
