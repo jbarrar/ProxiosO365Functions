@@ -17,9 +17,10 @@ $resourceURI = "https://celeritasvault.vault.azure.net/secrets/AdminPassSecureSt
 $tokenAuthURI = $env:MSI_ENDPOINT + "?resource=$resourceURI&api-version=$apiVersion"
 $tokenResponse = Invoke-RestMethod -Method Get -Headers @{"Secret"="$env:MSI_SECRET"} -Uri $tokenAuthURI
 $accessToken = $tokenResponse.access_token
+Write-Host $accessToken
 
-$pw = Get-AzureKeyVaultSecret -VaultName $keyVaultName -Name "AdminPassSecureString"
-Write-Host $pw
+#$pw = Get-AzureKeyVaultSecret -VaultName $keyVaultName -Name "AdminPassSecureString"
+
 # Build Credentials
 #$keypath = "D:\home\site\wwwroot\$FunctionName\bin\keys\PassEncryptKey.key"
 #$secpassword = $pw | ConvertTo-SecureString -Key (Get-Content $keypath)
