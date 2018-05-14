@@ -18,15 +18,15 @@
             "defaultValue": "proxioso365test.azurewebsites.net",
             "type": "string"
         },
-        "RepoUrl": {
+        "sourceCodeRepositoryURL": {
             "defaultValue": "https://github.com/jbarrar/ProxiosO365Functions",
             "type": "string"
         },
-        "branch": {
+        "sourceCodeBranch": {
             "defaultValue": "master",
             "type": "string"
         },
-        "IsManualIntegration": {
+        "sourceCodeManualIntegration": {
             "defaultValue": "false",
             "type": "string"
         }
