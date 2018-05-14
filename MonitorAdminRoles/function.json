@@ -7,9 +7,9 @@
       "schedule": "0 30 12 * * 1-5"
     },
     {
-      "name": "triggerInput",
-      "type": "queueTrigger",
-      "direction": "in",
+      "name": "queueOutput",
+      "type": "queue",
+      "direction": "out",
       "queueName": "adminnotifications",
       "connection": "AzureWebJobsStorage"
     },
