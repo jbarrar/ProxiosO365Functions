@@ -3,6 +3,7 @@ Write-Output "PowerShell Timer trigger function executed at:$(get-date)";
 # Set this $NotifyOnNewAdmins value to true after you've completed the initial upload
 $tableName = "tableBinding"
 $queueName = "queueOutput"
+$connectionString = $env:AzureWebJobsStorage
 <#$NotifyOnNewAdmins = $false
 $storageAccount = "proxioso365"
 $primaryKey = "PrKuwY/0mkZsSmzezHF3N9wrvc0lIZKqaDkD4cymsqJVecwk6ZPG7TAQRmAN2Fr+jt5lptG/PHFuDuQ/+CYLDQ=="
@@ -19,15 +20,15 @@ $credential = New-Object System.Management.Automation.PSCredential ($username, $
 Connect-MsolService -Credential $credential
  
 #>
-#$Ctx = New-AzureStorageContext $storageAccount -StorageAccountKey $primaryKey
-$Table = Get-AzureStorageTable -Name $tableName -ErrorAction Ignore
-#if ($Table -eq $null) {
-#    $Table = New-AzureStorageTable -Name $tableName
-#}
-$Queue = Get-AzureStorageQueue -Name $QueueName -ErrorAction Ignore
-#    if ($Queue -eq $null) {
-#        $Queue = New-AzureStorageQueue -Name $QueueName
-#}
+$Ctx = New-AzureStorageContext -ConnectionString $connectionString
+$Table = Get-AzureStorageTable -Name $tableName -Context $Ctx -ErrorAction Ignore
+if ($Table -eq $null) {
+    $Table = New-AzureStorageTable -Name $tableName -Context $Ctx 
+}
+$Queue = Get-AzureStorageQueue -Name $QueueName -Context $Ctx -ErrorAction Ignore
+    if ($Queue -eq $null) {
+        $Queue = New-AzureStorageQueue -Name $QueueName -Context $Ctx 
+}
 
 <# Check for existing Admins
 $existingAdmins = (Get-AzureStorageTableRowAll -table $Table).RowKey
