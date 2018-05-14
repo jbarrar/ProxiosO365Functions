@@ -13,7 +13,7 @@ $username = "o365tasks@prxcsp.com"
 
 # Code to retreive with Managed Service Identity
 $apiVersion = "2017-09-01"
-$resourceURI = "https://celeritasvault.vault.azure.net/secrets/AdminPassSecureString"
+$resourceURI = "https://celeritasvault.vault.azure.net/secrets/AdminPassSecureString/bb11e2f53cc14ac984e4649cf0bb6b71"
 $tokenAuthURI = $env:MSI_ENDPOINT + "?resource=$resourceURI&api-version=$apiVersion"
 $tokenResponse = Invoke-RestMethod -Method Get -Headers @{"Secret"="$env:MSI_SECRET"} -Uri $tokenAuthURI
 $accessToken = $tokenResponse.access_token
