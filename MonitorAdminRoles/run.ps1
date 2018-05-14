@@ -4,8 +4,8 @@ Write-Output "PowerShell Timer trigger function executed at:$(get-date)";
 $NotifyOnNewAdmins = $false
 $storageAccount = "proxioso365"
 $primaryKey = "PrKuwY/0mkZsSmzezHF3N9wrvc0lIZKqaDkD4cymsqJVecwk6ZPG7TAQRmAN2Fr+jt5lptG/PHFuDuQ/+CYLDQ=="
-$tableName = "roleMonitoring"
-$queueName = "adminnotifications"
+$tableName = "tableBinding"
+$queueName = "queueOutput"
 $FunctionName = "MonitorAdminRoles"
 $username = $Env:user
 $pw = $Env:password
@@ -17,20 +17,20 @@ $credential = New-Object System.Management.Automation.PSCredential ($username, $
 # Connect to MSOnline
 Connect-MsolService -Credential $credential
  
- 
-$Ctx = New-AzureStorageContext $storageAccount -StorageAccountKey $primaryKey
-$Table = Get-AzureStorageTable -Name $tableName -Context $ctx -ErrorAction Ignore
- 
-if ($Table -eq $null) {
-    $Table = New-AzureStorageTable -Name $tableName -Context $Ctx
-}
-$Queue = Get-AzureStorageQueue -Name $QueueName -Context $Ctx -ErrorAction Ignore
-    if ($Queue -eq $null) {
-        $Queue = New-AzureStorageQueue -Name $QueueName -Context $Ctx
-}
+
+#$Ctx = New-AzureStorageContext $storageAccount -StorageAccountKey $primaryKey
+$Table = Get-AzureStorageTable -Name $tableName -ErrorAction Ignore
+#if ($Table -eq $null) {
+#    $Table = New-AzureStorageTable -Name $tableName
+#}
+$Queue = Get-AzureStorageQueue -Name $QueueName -ErrorAction Ignore
+#    if ($Queue -eq $null) {
+#        $Queue = New-AzureStorageQueue -Name $QueueName
+#}
+Exit
 # Check for existing Admins
 $existingAdmins = (Get-AzureStorageTableRowAll -table $Table).RowKey
- 
+
 $customers = Get-MsolPartnerContract -all
 $currentAdmins = @()
 foreach ($customer in $customers) {
