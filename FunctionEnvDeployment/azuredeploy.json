@@ -3,23 +3,19 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "sites_ProxiosO365_name": {
-            "defaultValue": "ProxiosO365",
+            "defaultValue": "ProxiosO365Test",
             "type": "string"
         },
         "config_web_name": {
             "defaultValue": "web",
             "type": "string"
         },
-        "storageAccounts_proxioso365_name": {
-            "defaultValue": "proxioso365",
-            "type": "string"
-        },
         "servicePlan_name": {
-            "defaultValue": "ProxiosO365FunctionsSP",
+            "defaultValue": "ProxiosO365FunctionsSPTest",
             "type": "string"
         },
         "hostNameBindings_proxioso365.azurewebsites.net_name": {
-            "defaultValue": "proxioso365.azurewebsites.net",
+            "defaultValue": "proxioso365test.azurewebsites.net",
             "type": "string"
         },
         "RepoUrl": {
@@ -50,7 +46,7 @@
                 "tier": "Standard"
             },
             "kind": "Storage",
-            "name": "[parameters('storageAccounts_proxioso365_name')]",
+            "name": "[variables('storageAccountName')]",
             "apiVersion": "2017-10-01",
             "location": "centralus",
             "tags": {},
