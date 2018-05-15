@@ -52,7 +52,6 @@
     },
     "resources": [
         {
-            "comments": "Generalized from resource: '/subscriptions/7cb5512a-6ad0-4d3b-9abc-54819f2b6ca2/resourceGroups/ProxiosO365Functions/providers/Microsoft.Storage/storageAccounts/proxioso365'.",
             "type": "Microsoft.Storage/storageAccounts",
             "sku": {
                 "name": "Standard_LRS",
@@ -67,7 +66,6 @@
             "dependsOn": []
         },
         {
-            "comments": "Generalized from resource: '/subscriptions/7cb5512a-6ad0-4d3b-9abc-54819f2b6ca2/resourceGroups/ProxiosO365Functions/providers/Microsoft.Web/serverfarms/ServicePlanc78953a5-a033'.",
             "type": "Microsoft.Web/serverfarms",
             "sku": {
                 "name": "[parameters('servicePlan_sku')]",
@@ -87,7 +85,6 @@
             "dependsOn": []
         },
         {
-            "comments": "Generalized from resource: '/subscriptions/7cb5512a-6ad0-4d3b-9abc-54819f2b6ca2/resourceGroups/ProxiosO365Functions/providers/Microsoft.Web/sites/ProxiosO365'.",
             "type": "Microsoft.Web/sites",
             "kind": "functionapp",
             "name": "[parameters('sites_ProxiosO365_name')]",
