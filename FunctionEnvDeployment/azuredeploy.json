@@ -94,7 +94,11 @@
                "type": "SystemAssigned"
             },
             "properties": {
-                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('servicePlan_name'))]"
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('servicePlan_name'))]",
+                "siteConfig": {
+                    "use32BitWorkerProcess": false,
+                    "alwaysOn": true
+                }
             },
             "resources": [
                 {
